@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice';
+import CartItem from './CartItem';
 import plantImg from './assets/plant.jpg';
 
 const plantsArray = [
@@ -84,8 +85,7 @@ function ProductList({ onHomeClick }) {
       </nav>
 
       {showCart ? (
-        // ponytail: placeholder until CartItem.jsx exists
-        <h2>Cart coming soon</h2>
+        <CartItem onContinueShopping={() => setShowCart(false)} />
       ) : (
         <div className="product-list">
           {plantsArray.map((group) => (
@@ -96,7 +96,7 @@ function ProductList({ onHomeClick }) {
                   <div className="product-card" key={plant.name}>
                     <img src={plant.image} alt={plant.name} />
                     <h3>{plant.name}</h3>
-                    <p>${plant.cost}</p>
+                    <div>${plant.cost}</div>
                     <button disabled={isInCart(plant.name)} onClick={() => dispatch(addItem(plant))}>
                       {isInCart(plant.name) ? 'Added to Cart' : 'Add to Cart'}
                     </button>
