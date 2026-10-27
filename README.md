@@ -1,3 +1,3 @@
-# Paradise Nursery
+# e-plantShopping
 
-Apps of a houseplant shopping app built with React and Vite
+Paradise Nursery, a houseplant shopping app built with React, Redux and Vite.
