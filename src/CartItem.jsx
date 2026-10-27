@@ -20,6 +20,14 @@ function CartItem({ onContinueShopping }) {
     }
   };
 
+  const handleRemove = (item) => {
+    dispatch(removeItem(item.name));
+  };
+
+  const handleContinueShopping = (e) => {
+    onContinueShopping(e);
+  };
+
   return (
     <div className="cart-container">
       <h2>Total Plants: {totalQuantity}</h2>
@@ -37,13 +45,17 @@ function CartItem({ onContinueShopping }) {
               <button onClick={() => handleIncrement(item)}>+</button>
             </div>
             <div>Total: ${item.cost * item.quantity}</div>
-            <button onClick={() => dispatch(removeItem(item.name))}>Delete</button>
+            <button className="cart-item-delete" onClick={() => handleRemove(item)}>
+              Delete
+            </button>
           </div>
         </div>
       ))}
 
       <div className="cart-actions">
-        <button onClick={onContinueShopping}>Continue Shopping</button>
+        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>
+          Continue Shopping
+        </button>
         <button onClick={() => alert('Coming Soon')}>Checkout</button>
       </div>
     </div>

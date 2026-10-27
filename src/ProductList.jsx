@@ -46,46 +46,52 @@ function ProductList({ onHomeClick }) {
   const dispatch = useDispatch();
 
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
-  const isInCart = (name) => cartItems.some((item) => item.name === name);
+  const addedToCart = Object.fromEntries(cartItems.map((item) => [item.name, true]));
+
+  const handleHomeClick = (e) => {
+    e.preventDefault();
+    onHomeClick();
+  };
+
+  const handlePlantsClick = (e) => {
+    e.preventDefault();
+    setShowCart(false);
+  };
+
+  const handleCartClick = (e) => {
+    e.preventDefault();
+    setShowCart(true);
+  };
+
+  const handleContinueShopping = () => {
+    setShowCart(false);
+  };
+
+  const handleAddToCart = (plant) => {
+    dispatch(addItem(plant));
+  };
 
   return (
     <div>
       <nav className="navbar">
-        <span className="navbar-brand">Paradise Nursery</span>
+        <a href="#" className="navbar-brand" onClick={handleHomeClick}>
+          Paradise Nursery
+        </a>
         <div className="navbar-links">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              onHomeClick();
-            }}
-          >
+          <a href="#" onClick={handleHomeClick}>
             Home
           </a>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowCart(false);
-            }}
-          >
+          <a href="#" onClick={handlePlantsClick}>
             Plants
           </a>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowCart(true);
-            }}
-            aria-label="Cart"
-          >
+          <a href="#" onClick={handleCartClick} aria-label="Cart">
             🛒 <span className="cart-count">{totalQuantity}</span>
           </a>
         </div>
       </nav>
 
       {showCart ? (
-        <CartItem onContinueShopping={() => setShowCart(false)} />
+        <CartItem onContinueShopping={handleContinueShopping} />
       ) : (
         <div className="product-list">
           {plantsArray.map((group) => (
@@ -97,8 +103,8 @@ function ProductList({ onHomeClick }) {
                     <img src={plant.image} alt={plant.name} />
                     <h3>{plant.name}</h3>
                     <div>${plant.cost}</div>
-                    <button disabled={isInCart(plant.name)} onClick={() => dispatch(addItem(plant))}>
-                      {isInCart(plant.name) ? 'Added to Cart' : 'Add to Cart'}
+                    <button disabled={addedToCart[plant.name]} onClick={() => handleAddToCart(plant)}>
+                      {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
                     </button>
                   </div>
                 ))}

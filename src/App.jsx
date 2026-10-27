@@ -11,8 +11,8 @@ function App() {
   }
 
   return (
-    <div className="landing-page">
-      <h1>Paradise Nursery</h1>
+    <div className="landing-page background-image">
+      <h1>Welcome To Paradise Nursery</h1>
       <AboutUs />
       <button className="get-started-button" onClick={() => setShowProductList(true)}>
         Get Started
