@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import AboutUs from './AboutUs'
+import ProductList from './ProductList'
 import './App.css'
 
 function App() {
   const [showProductList, setShowProductList] = useState(false)
 
   if (showProductList) {
-    // ponytail: placeholder until ProductList.jsx exists
-    return <h2>Plants coming soon</h2>
+    return <ProductList onHomeClick={() => setShowProductList(false)} />
   }
 
   return (
